@@ -1,9 +1,16 @@
+// Define a TODO object prototype
+function Todo(title, description, isCompleted) {
+  this.title = title;
+  this.description = description;
+  this.isCompleted = isCompleted;
+}
+
 /**
  * @description A function that will create a new todo-list and append the list to the dom.
  */
 function createTodoList() {
   //collect input from form
-  let newList = document.getElementById('new-tdl-list').value;
+  let newTodo = document.getElementById('new-tdl-list').value;
 
   //create DOM elements for new TODO list
   let tdlMenu = document.getElementById('todo-lists');
@@ -14,7 +21,7 @@ function createTodoList() {
   // Create an anchor tag
   let anchorTag = document.createElement('a');
   anchorTag.setAttribute('href', '#');
-  anchorTag.innerText = newList;
+  anchorTag.innerText = newTodo;
 
   //append anchor tag to a li tag
   newLink.appendChild(anchorTag);
@@ -22,7 +29,9 @@ function createTodoList() {
   // append li tag to the UL
   tdlMenu.appendChild(newLink);
 
-  return newLink;
+  // define a new TODO
+  let newTodoObject = new Todo(`${newTodo}`, '', false);
+  localStorage.setItem(`${newTodo}`, JSON.stringify(newTodoObject));
 }
 
 // Event listener that runs the Create todo list
