@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Javascript Todo App</title>
+  </head>
+  <body>
+    <div id="wrapper">
+      <div id="tdl-box">
+        <h2>My Todos</h2>
+        <ul id="todo-lists"></ul>
+      </div>
+
+      <div id="entry-form">
+        <!-- Create New Todo List -->
+        <form id="new-tdl-form">
+          <label for="new-tdl-list">Create New Todo List</label>
+          <input
+            type="text"
+            name="new-tdl-list"
+            id="new-tdl-list"
+            placeholder="ex: Groceries"
+          />
+          <button type="submit" id="new-tdl-btn" class="btn">Create</button>
+        </form>
+
+        <!-- Create New Todo Item -->
+        <form id="new-todo-form" class="hidden">
+          <label for="new-todo">Insert New Task</label>
+          <input
+            type="text"
+            name="new-todo"
+            id="new-todo"
+            placeholder="ex: Pick up bananas"
+          />
+          <button type="submit" id="new-todo-btn" class="btn">Insert</button>
+        </form>
+      </div>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>
