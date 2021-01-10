@@ -4,9 +4,10 @@
 }
 
 #wrapper {
+  margin-top: 2rem;
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: top;
   justify-content: center;
 }
 
@@ -20,11 +21,11 @@
 }
 
 #new-tdl-form label,
-#new-todo-form label {
+#todo-list-form label {
   font-size: 18px;
 }
 #new-tdl-form input,
-#new-todo-form input {
+#todo-list-form input {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;

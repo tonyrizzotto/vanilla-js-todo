@@ -72,7 +72,43 @@ function createTodoList() {
     localStorage.setItem('Todo-List', JSON.stringify(storedTodoList));
 
     //refresh list
-    //location.reload();
+    location.reload();
+  }
+}
+
+/**
+ * @description a function to render a todo list and it's task to the DOM
+ */
+
+function showTodo(listTitle) {
+  //get ID
+  let todoDiv = document.getElementById('todo-list-form');
+
+  //Create a Heading
+  let listHeading = document.createElement('h3');
+  listHeading.innerText = listTitle;
+  todoDiv.appendChild(listHeading);
+
+  //add a task input field
+  let todoInput = document.createElement('input');
+  todoInput.setAttribute('input', 'text');
+  todoInput.setAttribute('placeholder', 'ex: eggs, butter, milk');
+  todoDiv.appendChild(todoInput);
+
+  //Create and display a submit change button
+  const todoSubmitBtn = document.createElement('button');
+  todoSubmitBtn.classList.add('btn');
+  todoSubmitBtn.innerText = 'Submit';
+  todoDiv.appendChild(todoSubmitBtn);
+
+  /**
+   * @description Takes in the task Array and appends to the DOM
+   */
+  function filterTasks(tasksArray) {
+    let tasks = tasksArray;
+    tasks.forEach((task) => {
+      console.log(task);
+    });
   }
 }
 
@@ -82,24 +118,29 @@ document.getElementById('new-tdl-btn').addEventListener('click', function (e) {
   e.preventDefault();
   // Create Todo
   createTodoList();
-
-  //add and remove hidden class
-  // document.getElementById('new-tdl-form').classList.add('hidden');
-  // document.getElementById('new-todo-form').classList.remove('hidden');
 });
 
 //Detect if a Todo-List is clicked
 document.getElementById('todo-lists').addEventListener('click', function (e) {
   if (e.target && e.target.matches('A.todo-link')) {
-    // store the click
-    let itemClicked = e.target.innerText;
+    // store the click and save it's listindex
+    let itemClicked = e.target.attributes.listindex.nodeValue;
     //get the localstorage array
     let storedLists = JSON.parse(localStorage.getItem('Todo-List'));
-    //filter results by the itemClicked
-    const result = storedLists.filter((list) => list.title === itemClicked);
 
-    console.log(result[0]);
-    // check array for a title that matches
+    //filter results by the itemClicked
+    storedLists.filter((list) => {
+      let index = storedLists.indexOf(list);
+      if (index === itemClicked - 1) {
+        //clear out previous html for new list
+        document.getElementById('todo-list-form').innerHTML = '';
+        showTodo(list.title);
+        console.log(list);
+      }
+    });
+
+    document.getElementById('new-tdl-form').classList.add('hidden');
+    document.getElementById('todo-list-form').classList.remove('hidden');
 
     //show the todolist on the page
   }
