@@ -6,16 +6,19 @@ function Todo(title, isCompleted) {
 }
 
 //Define a function for appending data
-function makeLinks(title) {
+function makeLinks(title, index) {
   //create DOM elements for new TODO list
   let tdlMenu = document.getElementById('todo-lists');
 
   // Create a new list tag
   let newLink = document.createElement('li');
+  newLink.classList.add('todo-list');
 
   // Create an anchor tag
   let anchorTag = document.createElement('a');
+  anchorTag.classList.add('todo-link');
   anchorTag.setAttribute('href', '#');
+  anchorTag.setAttribute('listIndex', index);
   anchorTag.innerText = title;
 
   //append anchor tag to a li tag
@@ -36,7 +39,11 @@ function getTodoLists() {
     //do nothing
   } else {
     //get all list titles and create links
-    checkForLists.forEach((list) => makeLinks(list.title));
+    checkForLists.forEach((list) => {
+      let index = checkForLists.indexOf(list) + 1;
+      let newText = list.title;
+      makeLinks(newText, index);
+    });
   }
 }
 
@@ -55,19 +62,21 @@ function createTodoList() {
 
   // If no Todo-List, create one, otherwise append and replace with new version
   if (!checkForTodo) {
-    makeLinks(newTodo);
     let storageArray = [newTodoObject];
     localStorage.setItem('Todo-List', JSON.stringify(storageArray));
+    //location.reload();
   } else {
     // take the new Todo and push to the array
     let storedTodoList = JSON.parse(localStorage.getItem('Todo-List'));
     storedTodoList.push(newTodoObject);
     localStorage.setItem('Todo-List', JSON.stringify(storedTodoList));
-    makeLinks(newTodo);
+
+    //refresh list
+    //location.reload();
   }
 }
 
-// Create List Event Listener
+// Detect if a todo-list is created
 document.getElementById('new-tdl-btn').addEventListener('click', function (e) {
   //Prevent the default function
   e.preventDefault();
@@ -79,4 +88,19 @@ document.getElementById('new-tdl-btn').addEventListener('click', function (e) {
   // document.getElementById('new-todo-form').classList.remove('hidden');
 });
 
-// Click Todo List Event Listener
+//Detect if a Todo-List is clicked
+document.getElementById('todo-lists').addEventListener('click', function (e) {
+  if (e.target && e.target.matches('A.todo-link')) {
+    // store the click
+    let itemClicked = e.target.innerText;
+    //get the localstorage array
+    let storedLists = JSON.parse(localStorage.getItem('Todo-List'));
+    //filter results by the itemClicked
+    const result = storedLists.filter((list) => list.title === itemClicked);
+
+    console.log(result[0]);
+    // check array for a title that matches
+
+    //show the todolist on the page
+  }
+});
