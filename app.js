@@ -1,3 +1,6 @@
+// Global Variables
+let getTodoLists = localStorage.getItem('Todo-Lists');
+
 // Define a TODO object prototype
 function Todo(title, isCompleted) {
   this.title = title;
@@ -31,8 +34,8 @@ function makeLinks(title, index) {
 /**
  * @description Gets all created Todo-Lists and appends to the DOM
  */
-function getTodoLists() {
-  let checkForLists = JSON.parse(localStorage.getItem('Todo-List'));
+function fetchTodoLists() {
+  let checkForLists = JSON.parse(getTodoLists);
   //console.log(checkForLists);
 
   if (!checkForLists) {
@@ -58,18 +61,18 @@ function createTodoList() {
   let newTodoObject = new Todo(`${newTodo}`, false);
 
   // Check for the 'Todo-List' Item
-  let checkForTodo = localStorage.getItem('Todo-List');
+  let checkForTodo = localStorage.getItem('Todo-Lists');
 
   // If no Todo-List, create one, otherwise append and replace with new version
   if (!checkForTodo) {
     let storageArray = [newTodoObject];
-    localStorage.setItem('Todo-List', JSON.stringify(storageArray));
+    localStorage.setItem('Todo-Lists', JSON.stringify(storageArray));
     //location.reload();
   } else {
     // take the new Todo and push to the array
-    let storedTodoList = JSON.parse(localStorage.getItem('Todo-List'));
+    let storedTodoList = JSON.parse(localStorage.getItem('Todo-Lists'));
     storedTodoList.push(newTodoObject);
-    localStorage.setItem('Todo-List', JSON.stringify(storedTodoList));
+    localStorage.setItem('Todo-Lists', JSON.stringify(storedTodoList));
 
     //refresh list
     location.reload();
@@ -80,8 +83,8 @@ function createTodoList() {
  * @description a function to render a todo list and it's task to the DOM
  */
 
-function showTodo(listTitle) {
-  //get ID
+function showTodoForm(listTitle, listIndex) {
+  //get ID of div
   let todoDiv = document.getElementById('todo-list-form');
 
   //Create a Heading
@@ -91,6 +94,7 @@ function showTodo(listTitle) {
 
   //add a task input field
   let todoInput = document.createElement('input');
+  todoInput.setAttribute('id', 'new-task-input');
   todoInput.setAttribute('input', 'text');
   todoInput.setAttribute('placeholder', 'ex: eggs, butter, milk');
   todoDiv.appendChild(todoInput);
@@ -98,18 +102,38 @@ function showTodo(listTitle) {
   //Create and display a submit change button
   const todoSubmitBtn = document.createElement('button');
   todoSubmitBtn.classList.add('btn');
-  todoSubmitBtn.innerText = 'Submit';
+  todoSubmitBtn.setAttribute('id', 'new-task-btn');
+  todoSubmitBtn.innerText = 'Insert New Todo';
   todoDiv.appendChild(todoSubmitBtn);
 
   /**
-   * @description Takes in the task Array and appends to the DOM
+   * @description Creates a new todo item and append to array
    */
-  function filterTasks(tasksArray) {
-    let tasks = tasksArray;
-    tasks.forEach((task) => {
-      console.log(task);
-    });
+  function createTask() {
+    //get the input field value
+    let newTask = document.getElementById('new-task-input').value;
+
+    let taskArray = JSON.parse(getTodoLists)[listIndex].tasks;
+    taskArray.push(newTask);
+    console.log(taskArray);
+    //store it in browser storage
+    //clear screen and re-render list of tasks
   }
+
+  //Listen for insert new task click
+  todoSubmitBtn.addEventListener('click', function () {
+    createTask();
+  });
+}
+
+/**
+ * @description Takes in the task Array and appends to the DOM
+ */
+function filterTasks(tasksArray) {
+  let tasks = tasksArray;
+  tasks.forEach((task) => {
+    console.log(task);
+  });
 }
 
 // Detect if a todo-list is created
@@ -126,7 +150,7 @@ document.getElementById('todo-lists').addEventListener('click', function (e) {
     // store the click and save it's listindex
     let itemClicked = e.target.attributes.listindex.nodeValue;
     //get the localstorage array
-    let storedLists = JSON.parse(localStorage.getItem('Todo-List'));
+    let storedLists = JSON.parse(localStorage.getItem('Todo-Lists'));
 
     //filter results by the itemClicked
     storedLists.filter((list) => {
@@ -134,14 +158,13 @@ document.getElementById('todo-lists').addEventListener('click', function (e) {
       if (index === itemClicked - 1) {
         //clear out previous html for new list
         document.getElementById('todo-list-form').innerHTML = '';
-        showTodo(list.title);
-        console.log(list);
+        showTodoForm(list.title, index);
+        //show tasks
+        filterTasks(list.tasks);
       }
     });
 
     document.getElementById('new-tdl-form').classList.add('hidden');
     document.getElementById('todo-list-form').classList.remove('hidden');
-
-    //show the todolist on the page
   }
 });

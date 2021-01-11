@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="style.css" />
     <title>Javascript Todo App</title>
   </head>
-  <body onload="getTodoLists()">
+  <body onload="fetchTodoLists()">
     <div id="wrapper">
       <div id="tdl-box">
         <h2>My Todos</h2>
@@ -40,7 +40,8 @@
 
         <!-- Shows Todo-List selected -->
         <form id="todo-list-form" class="hidden">
-          <h1>Todolist form</h1>
+          <div id="tasks"></div>
+          <button id="new-task-btn" class="btn">Submit New Task</button>
         </form>
       </div>
     </div>
