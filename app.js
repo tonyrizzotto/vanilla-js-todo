@@ -113,9 +113,20 @@ function showTodoForm(listTitle, listIndex) {
     //get the input field value
     let newTask = document.getElementById('new-task-input').value;
 
+    //create a copy of stored array
+    let todoListCopy = JSON.parse(getTodoLists);
+
+    //Create a copy of indexed task array
     let taskArray = JSON.parse(getTodoLists)[listIndex].tasks;
+    //add new todo to the array
     taskArray.push(newTask);
-    console.log(taskArray);
+    //push task to the copied array
+    todoListCopy[listIndex].tasks = taskArray;
+
+    //Store Change in the Browser
+    localStorage.setItem('Todo-Lists', JSON.stringify(todoListCopy));
+
+    console.log(listIndex);
     //store it in browser storage
     //clear screen and re-render list of tasks
   }
