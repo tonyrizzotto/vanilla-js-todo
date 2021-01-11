@@ -1,5 +1,6 @@
 // Global Variables
-let getTodoLists = localStorage.getItem('Todo-Lists');
+let getTodoLists = JSON.parse(localStorage.getItem('Todo-Lists'));
+let myArray = [];
 
 // Define a TODO object prototype
 function Todo(title, isCompleted) {
@@ -7,15 +8,62 @@ function Todo(title, isCompleted) {
   this.tasks = [];
   this.isCompleted = isCompleted;
 }
+/**
+ * @description Clears a form - takes the ID name as a parameter
+ */
+
+function clearForm(formId) {
+  let form = document.getElementById(formID);
+  form.reset();
+}
+/**
+ * @description Gets all created Todo-Lists and appends to the DOM
+ */
+function fetchTodoLists() {
+  if (!getTodoLists) {
+    //do nothing
+  } else {
+    //get all list titles and create links
+    getTodoLists.forEach((list) => {
+      let index = getTodoLists.indexOf(list) + 1;
+      let newText = list.title;
+      makeLinks(newText, index);
+    });
+  }
+}
+
+/**
+ * @description Takes in the task Array and appends to the DOM
+ */
+function filterTasks(tasksArray) {
+  let tasks = tasksArray;
+  let tasksDiv = document.getElementById('tasks');
+  tasksDiv.innerHTML = '';
+  var list = document.createElement('ul');
+
+  tasks.forEach((task) => {
+    var li = document.createElement('li');
+    li.textContent = task;
+    list.appendChild(li);
+  });
+
+  tasksDiv.appendChild(list);
+}
+
+//filterTasks(myArray);
 
 //Define a function for appending data
 function makeLinks(title, index) {
   //create DOM elements for new TODO list
   let tdlMenu = document.getElementById('todo-lists');
 
+  let linkMenu = document.createElement('ul');
+  linkMenu.setAttribute('id', 'task-menu');
+  tdlMenu.appendChild(linkMenu);
   // Create a new list tag
   let newLink = document.createElement('li');
   newLink.classList.add('todo-list');
+  linkMenu.appendChild(newLink);
 
   // Create an anchor tag
   let anchorTag = document.createElement('a');
@@ -29,25 +77,6 @@ function makeLinks(title, index) {
 
   // append li tag to the UL
   tdlMenu.appendChild(newLink);
-}
-
-/**
- * @description Gets all created Todo-Lists and appends to the DOM
- */
-function fetchTodoLists() {
-  let checkForLists = JSON.parse(getTodoLists);
-  //console.log(checkForLists);
-
-  if (!checkForLists) {
-    //do nothing
-  } else {
-    //get all list titles and create links
-    checkForLists.forEach((list) => {
-      let index = checkForLists.indexOf(list) + 1;
-      let newText = list.title;
-      makeLinks(newText, index);
-    });
-  }
 }
 
 /**
@@ -70,7 +99,7 @@ function createTodoList() {
     //location.reload();
   } else {
     // take the new Todo and push to the array
-    let storedTodoList = JSON.parse(localStorage.getItem('Todo-Lists'));
+    let storedTodoList = getTodoLists;
     storedTodoList.push(newTodoObject);
     localStorage.setItem('Todo-Lists', JSON.stringify(storedTodoList));
 
@@ -83,7 +112,7 @@ function createTodoList() {
  * @description a function to render a todo list and it's task to the DOM
  */
 
-function showTodoForm(listTitle, listIndex) {
+function showTodoList(listTitle, listIndex) {
   //get ID of div
   let todoDiv = document.getElementById('todo-list-form');
 
@@ -107,17 +136,17 @@ function showTodoForm(listTitle, listIndex) {
   todoDiv.appendChild(todoSubmitBtn);
 
   /**
-   * @description Creates a new todo item and append to array
+   * @description Creates a new todo task and append to array
    */
   function createTask() {
     //get the input field value
     let newTask = document.getElementById('new-task-input').value;
 
     //create a copy of stored array
-    let todoListCopy = JSON.parse(getTodoLists);
+    let todoListCopy = getTodoLists;
 
     //Create a copy of indexed task array
-    let taskArray = JSON.parse(getTodoLists)[listIndex].tasks;
+    let taskArray = todoListCopy[listIndex].tasks;
     //add new todo to the array
     taskArray.push(newTask);
     //push task to the copied array
@@ -126,31 +155,26 @@ function showTodoForm(listTitle, listIndex) {
     //Store Change in the Browser
     localStorage.setItem('Todo-Lists', JSON.stringify(todoListCopy));
 
-    console.log(listIndex);
-    //store it in browser storage
     //clear screen and re-render list of tasks
+    myArray = taskArray;
+
+    filterTasks(myArray);
   }
 
   //Listen for insert new task click
-  todoSubmitBtn.addEventListener('click', function () {
+  todoSubmitBtn.addEventListener('click', function (e) {
+    e.preventDefault();
     createTask();
-  });
-}
 
-/**
- * @description Takes in the task Array and appends to the DOM
- */
-function filterTasks(tasksArray) {
-  let tasks = tasksArray;
-  tasks.forEach((task) => {
-    console.log(task);
+    if (e.target && e.target.matches('Button#new-task-btn')) {
+      //clear input
+      document.getElementById('new-task-input').value = '';
+    }
   });
 }
 
 // Detect if a todo-list is created
-document.getElementById('new-tdl-btn').addEventListener('click', function (e) {
-  //Prevent the default function
-  e.preventDefault();
+document.getElementById('new-tdl-btn').addEventListener('click', function () {
   // Create Todo
   createTodoList();
 });
@@ -159,17 +183,17 @@ document.getElementById('new-tdl-btn').addEventListener('click', function (e) {
 document.getElementById('todo-lists').addEventListener('click', function (e) {
   if (e.target && e.target.matches('A.todo-link')) {
     // store the click and save it's listindex
-    let itemClicked = e.target.attributes.listindex.nodeValue;
+    let listIndex = e.target.attributes.listindex.nodeValue;
     //get the localstorage array
     let storedLists = JSON.parse(localStorage.getItem('Todo-Lists'));
 
     //filter results by the itemClicked
     storedLists.filter((list) => {
       let index = storedLists.indexOf(list);
-      if (index === itemClicked - 1) {
+      if (index === listIndex - 1) {
         //clear out previous html for new list
         document.getElementById('todo-list-form').innerHTML = '';
-        showTodoForm(list.title, index);
+        showTodoList(list.title, index);
         //show tasks
         filterTasks(list.tasks);
       }

@@ -4,11 +4,12 @@
 }
 
 #wrapper {
-  margin-top: 2rem;
+  margin: auto;
+  width: 700px;
   display: flex;
   flex-direction: row;
-  align-items: top;
-  justify-content: center;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 #entry-form,
@@ -48,4 +49,16 @@
 
 .hidden {
   display: none;
+}
+
+/* Task Display */
+#task-box {
+  margin: auto;
+  width: 500px;
+}
+#task-box ul {
+  list-style: none;
+}
+#task-box li {
+  font-size: 20px;
 }
