@@ -50,8 +50,6 @@ function filterTasks(tasksArray) {
   tasksDiv.appendChild(list);
 }
 
-//filterTasks(myArray);
-
 //Define a function for appending data
 function makeLinks(title, index) {
   //create DOM elements for new TODO list
