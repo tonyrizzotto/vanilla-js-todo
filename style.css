@@ -5,10 +5,11 @@
 
 #wrapper {
   margin: auto;
-  width: 700px;
+  width: auto;
+  max-width: 600px;
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: initial;
   justify-content: space-evenly;
 }
 
@@ -56,9 +57,36 @@
   margin: auto;
   width: 500px;
 }
-#task-box ul {
-  list-style: none;
+#tasks {
+  display: flex;
+  flex-direction: column;
+  /* background-color: lightblue; */
+  padding: 0.3rem;
 }
-#task-box li {
+#tasks span {
+  background-color: #ebebeb;
+  margin: 0.2rem 0;
+  padding: 10px;
   font-size: 20px;
+  border-bottom: 2px solid black;
+  border-radius: 0;
+  cursor: pointer;
+}
+
+#tasks span:hover {
+  background-color: rgb(21, 216, 3);
+  transition: 0.4s ease-in-out;
+}
+.icon {
+  color: rgb(81, 81, 82);
+  float: right;
+}
+.icon:hover {
+  transition: 0.8s;
+  transform: rotate(90deg);
+  color: red;
+}
+
+.clicked {
+  background-color: green;
 }

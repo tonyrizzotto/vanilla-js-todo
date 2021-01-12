@@ -8,14 +8,11 @@ function Todo(title, isCompleted) {
   this.tasks = [];
   this.isCompleted = isCompleted;
 }
-/**
- * @description Clears a form - takes the ID name as a parameter
- */
 
-function clearForm(formId) {
-  let form = document.getElementById(formID);
-  form.reset();
-}
+// simple function to change classes for icons
+// function clicked(){
+//   let clickedItem =
+// }
 /**
  * @description Gets all created Todo-Lists and appends to the DOM
  */
@@ -39,15 +36,19 @@ function filterTasks(tasksArray) {
   let tasks = tasksArray;
   let tasksDiv = document.getElementById('tasks');
   tasksDiv.innerHTML = '';
-  var list = document.createElement('ul');
 
   tasks.forEach((task) => {
-    var li = document.createElement('li');
-    li.textContent = task;
-    list.appendChild(li);
-  });
+    let taskSpan = document.createElement('span');
+    //taskSpan.setAttribute('id', `task-${index}`);
+    taskSpan.innerText = task;
 
-  tasksDiv.appendChild(list);
+    // create icon tag
+    let icon = document.createElement('i');
+    icon.setAttribute('class', 'fas fa-times icon');
+    taskSpan.appendChild(icon);
+
+    tasksDiv.appendChild(taskSpan);
+  });
 }
 
 //Define a function for appending data
@@ -191,7 +192,7 @@ document.getElementById('todo-lists').addEventListener('click', function (e) {
       if (index === listIndex - 1) {
         //clear out previous html for new list
         document.getElementById('todo-list-form').innerHTML = '';
-        showTodoList(list.title, index);
+        showTodoList(list.title);
         //show tasks
         filterTasks(list.tasks);
       }
