@@ -56,13 +56,13 @@ function makeLinks(title, index) {
   //create DOM elements for new TODO list
   let tdlMenu = document.getElementById('todo-lists');
 
-  let linkMenu = document.createElement('ul');
-  linkMenu.setAttribute('id', 'task-menu');
-  tdlMenu.appendChild(linkMenu);
+  // let linkMenu = document.createElement('ul');
+  // linkMenu.setAttribute('id', 'task-menu');
+  // tdlMenu.appendChild(linkMenu);
   // Create a new list tag
   let newLink = document.createElement('li');
   newLink.classList.add('todo-list');
-  linkMenu.appendChild(newLink);
+  tdlMenu.appendChild(newLink);
 
   // Create an anchor tag
   let anchorTag = document.createElement('a');

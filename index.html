@@ -16,7 +16,7 @@
   <body onload="fetchTodoLists()">
     <div id="wrapper">
       <div id="tdl-box">
-        <h2>My Todo Lists</h2>
+        <h2>My Lists</h2>
         <ul id="todo-lists"></ul>
       </div>
 
@@ -38,12 +38,13 @@
         <form id="todo-list-form" class="hidden">
           <button id="new-task-btn" class="btn">Submit New Task</button>
         </form>
+        <!-- Entered tasks will render here -->
+        <div id="task-box">
+          <div id="tasks"></div>
+        </div>
       </div>
     </div>
-    <!-- Entered tasks will render here -->
-    <div id="task-box">
-      <div id="tasks"></div>
-    </div>
+
     <script src="app.js"></script>
   </body>
 </html>
