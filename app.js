@@ -26,38 +26,56 @@ function fetchTodoLists() {
 }
 
 /**
- * @description Takes in the task Array and appends to the DOM
+ * @description Takes in the task Array and appends to the DOM.
+ * @param tasksArray is the array of tasks located in each list.
+ * @param list this is the index of the main list in the array.
  */
-function filterTasks(tasksArray) {
+function filterTasks(tasksArray, list) {
   let tasks = tasksArray;
   let tasksDiv = document.getElementById('tasks');
   tasksDiv.innerHTML = '';
 
   tasks.forEach((task) => {
+    // unique Index of each task
     let index = tasks.indexOf(task);
+
+    // Create a span for each task
     let taskSpan = document.createElement('span');
+    taskSpan.setAttribute('id', `task-${index}`);
     taskSpan.classList.add('task');
     taskSpan.innerText = task;
 
-    // create icon tag
+    // create icon tag for delete
     let icon = document.createElement('i');
     icon.setAttribute('class', 'fas fa-times icon');
 
-    //save list index to the icon - used for Deletion
-    icon.setAttribute('id', `task-${index}`);
+    //save list index and task index to the icon - used for Deletion
+    icon.setAttribute('listIndex', list);
+    icon.setAttribute('id', index);
     taskSpan.appendChild(icon);
 
     tasksDiv.appendChild(taskSpan);
 
-    const deleteButton = document.getElementById(`task-${index}`);
+    const deleteButton = document.getElementById(index);
 
     // Listener to detect if the delete icon was clicked.
     deleteButton.addEventListener('click', function () {
-      tasksArray.splice(index, 1);
-      // reset Task List
-      filterTasks(tasksArray);
-      // // Save to Storage
-      // localStorage.setItem('Todo-Lists', JSON.stringify(tasksArray));
+      if (taskSpan.innerText === tasks[index]) {
+        // get id of span clicked
+        const deletedTask = document.getElementById(`task-${index}`);
+
+        //remove task from array
+        tasks.splice(index, 1);
+        //replace array in variable
+        getTodoLists[list].tasks = tasks;
+        //replace that array in the Todo-List
+        localStorage.setItem('Todo-Lists', JSON.stringify(getTodoLists));
+
+        // remove the task from the display
+        deletedTask.remove();
+
+        filterTasks(getTodoLists[list].tasks, list);
+      }
     });
   });
 }
@@ -162,7 +180,7 @@ function showTodoList(listTitle, listIndex) {
     //clear screen and re-render list of tasks
     myArray = taskArray;
 
-    filterTasks(myArray);
+    filterTasks(myArray, listIndex);
   }
 
   //Listen for insert new task click
@@ -203,7 +221,7 @@ document.getElementById('todo-lists').addEventListener('click', function (e) {
         showTodoList(list.title, listIndex);
 
         //show tasks for selected Todo List
-        filterTasks(list.tasks);
+        filterTasks(list.tasks, listIndex);
       }
     });
 
