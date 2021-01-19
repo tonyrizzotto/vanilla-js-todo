@@ -6,24 +6,71 @@
 #wrapper {
   margin: auto;
   display: flex;
-  flex-direction: row;
-  align-items: center;
   justify-content: center;
-}
-
-#entry-form,
-#todo-lists {
-  padding: 1rem;
 }
 
 #entry-form {
   min-height: 200px;
 }
+
+/* Todo List Display */
+#tdl-box {
+  background-color: rgb(206, 132, 132);
+  min-height: 200px;
+}
+
+.todo-list {
+  cursor: pointer;
+}
 #todo-lists li {
+  margin: 5px;
+  border-radius: 10px;
+  font-size: 15px;
+  padding: 10px 5px;
+  background-color: rgb(130, 184, 130);
   list-style: none;
 }
-#todo-lists li a {
-  font-size: 18px;
+#todo-list li:hover {
+  background-color: rgb(110, 148, 110);
+
+  transition: 0.4s ease-in;
+}
+
+#entry-form {
+  background-color: skyblue;
+}
+/* Task Display */
+#task-box {
+  margin: auto;
+  width: 500px;
+}
+#tasks {
+  display: flex;
+  flex-direction: column;
+  padding: 0.3rem;
+}
+#tasks span {
+  background-color: #ebebeb;
+  margin: 0.2rem 0;
+  padding: 10px;
+  font-size: 20px;
+  border-bottom: 2px solid black;
+  border-radius: 0;
+  cursor: pointer;
+}
+
+#tasks span:hover {
+  background-color: rgba(140, 141, 140, 0.425);
+  transition: 0.4s ease-in-out;
+}
+.icon {
+  color: rgb(81, 81, 82);
+  float: right;
+}
+.icon:hover {
+  transition: 0.35s;
+  transform: rotate(90deg);
+  color: red;
 }
 
 #new-tdl-form label,
@@ -54,51 +101,6 @@
 
 .hidden {
   display: none;
-}
-
-/* Todo List Display */
-#tdl-box {
-  background-color: lightcoral;
-  min-height: 200px;
-}
-
-.todo-list {
-  cursor: pointer;
-}
-
-/* Task Display */
-#task-box {
-  margin: auto;
-  width: 500px;
-}
-#tasks {
-  display: flex;
-  flex-direction: column;
-  /* background-color: lightblue; */
-  padding: 0.3rem;
-}
-#tasks span {
-  background-color: #ebebeb;
-  margin: 0.2rem 0;
-  padding: 10px;
-  font-size: 20px;
-  border-bottom: 2px solid black;
-  border-radius: 0;
-  cursor: pointer;
-}
-
-#tasks span:hover {
-  background-color: rgba(140, 141, 140, 0.425);
-  transition: 0.4s ease-in-out;
-}
-.icon {
-  color: rgb(81, 81, 82);
-  float: right;
-}
-.icon:hover {
-  transition: 0.35s;
-  transform: rotate(90deg);
-  color: red;
 }
 
 .clicked {

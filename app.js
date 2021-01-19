@@ -229,3 +229,5 @@ document.getElementById('todo-lists').addEventListener('click', function (e) {
     document.getElementById('todo-list-form').classList.remove('hidden');
   }
 });
+
+window.onload('load', fetchTodoLists());
