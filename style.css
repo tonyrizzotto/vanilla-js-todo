@@ -62,6 +62,10 @@
   min-height: 200px;
 }
 
+.todo-list {
+  cursor: pointer;
+}
+
 /* Task Display */
 #task-box {
   margin: auto;
@@ -92,7 +96,7 @@
   float: right;
 }
 .icon:hover {
-  transition: 0.2s;
+  transition: 0.35s;
   transform: rotate(90deg);
   color: red;
 }

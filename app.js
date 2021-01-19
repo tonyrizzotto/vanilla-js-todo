@@ -14,7 +14,7 @@ function Todo(title, isCompleted) {
  */
 function fetchTodoLists() {
   if (!getTodoLists) {
-    //do nothing
+    //do nothing for now
   } else {
     //get all list titles and create links
     getTodoLists.forEach((list) => {
@@ -30,24 +30,35 @@ function fetchTodoLists() {
  */
 function filterTasks(tasksArray) {
   let tasks = tasksArray;
-
   let tasksDiv = document.getElementById('tasks');
   tasksDiv.innerHTML = '';
 
   tasks.forEach((task) => {
-    let index = tasks.indexOf(task) + 1;
-    console.log(index);
+    let index = tasks.indexOf(task);
     let taskSpan = document.createElement('span');
     taskSpan.classList.add('task');
-    taskSpan.setAttribute('taskindex', `${index}`);
     taskSpan.innerText = task;
 
     // create icon tag
     let icon = document.createElement('i');
     icon.setAttribute('class', 'fas fa-times icon');
+
+    //save list index to the icon - used for Deletion
+    icon.setAttribute('id', `task-${index}`);
     taskSpan.appendChild(icon);
 
     tasksDiv.appendChild(taskSpan);
+
+    const deleteButton = document.getElementById(`task-${index}`);
+
+    // Listener to detect if the delete icon was clicked.
+    deleteButton.addEventListener('click', function () {
+      tasksArray.splice(index, 1);
+      // reset Task List
+      filterTasks(tasksArray);
+      // // Save to Storage
+      // localStorage.setItem('Todo-Lists', JSON.stringify(tasksArray));
+    });
   });
 }
 
@@ -61,22 +72,14 @@ function makeLinks(title, index) {
   let tdlMenu = document.getElementById('todo-lists');
 
   // Create a new list tag
-  let newLink = document.createElement('li');
-  newLink.classList.add('todo-list');
-  tdlMenu.appendChild(newLink);
-
-  // Create an anchor tag
-  let anchorTag = document.createElement('a');
-  anchorTag.classList.add('todo-link');
-  anchorTag.setAttribute('href', '#');
-  anchorTag.setAttribute('listIndex', index);
-  anchorTag.innerText = title;
-
-  //append anchor tag to a li tag
-  newLink.appendChild(anchorTag);
+  let newList = document.createElement('li');
+  newList.classList.add('todo-list');
+  newList.setAttribute('listindex', index);
+  newList.innerText = title;
+  tdlMenu.appendChild(newList);
 
   // append li tag to the UL
-  tdlMenu.appendChild(newLink);
+  tdlMenu.appendChild(newList);
 }
 
 /**
@@ -182,7 +185,7 @@ document.getElementById('new-tdl-btn').addEventListener('click', function () {
 
 //Listener for selecting a Todo list
 document.getElementById('todo-lists').addEventListener('click', function (e) {
-  if (e.target && e.target.matches('A.todo-link')) {
+  if (e.target && e.target.matches('Li.todo-list')) {
     // store the click and save it's listindex
     let listIndex = e.target.attributes.listindex.nodeValue - 1;
 
