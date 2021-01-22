@@ -2,21 +2,55 @@
   margin: 0;
   padding: 0;
 }
-
-#wrapper {
-  margin: auto;
-  display: flex;
-  justify-content: center;
+body {
+  background: rgb(5, 44, 88);
+  background: linear-gradient(
+    90deg,
+    rgb(7, 75, 153) 27%,
+    rgb(12, 114, 134) 100%
+  );
+}
+h1 {
+  font-size: 64px;
+  color: white;
+  text-align: center;
+  padding-top: 0.8em;
 }
 
-#entry-form {
-  min-height: 200px;
+#wrapper {
+  height: 75vh;
+  width: 100vw;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
 }
 
 /* Todo List Display */
-#tdl-box {
-  background-color: rgb(206, 132, 132);
-  min-height: 200px;
+#todo-list-form {
+  text-align: center;
+}
+#todo-list-form h3 {
+  font-size: 24px;
+  padding: 10px;
+  color: white;
+}
+
+#new-tdl-form label,
+#todo-list-form label {
+  color: white;
+  font-size: 18px;
+}
+#new-tdl-form input,
+#todo-list-form input {
+  position: relative;
+  right: 9px;
+  width: 330px;
+  margin: 10px 10px;
+  padding: 12px 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 
 .todo-list {
@@ -30,18 +64,9 @@
   background-color: rgb(130, 184, 130);
   list-style: none;
 }
-#todo-list li:hover {
-  background-color: rgb(110, 148, 110);
 
-  transition: 0.4s ease-in;
-}
-
-#entry-form {
-  background-color: skyblue;
-}
 /* Task Display */
 #task-box {
-  margin: auto;
   width: 500px;
 }
 #tasks {
@@ -60,6 +85,7 @@
 }
 
 #tasks span:hover {
+  color: white;
   background-color: rgba(140, 141, 140, 0.425);
   transition: 0.4s ease-in-out;
 }
@@ -73,19 +99,14 @@
   color: red;
 }
 
-#new-tdl-form label,
-#todo-list-form label {
-  font-size: 18px;
+#back-arrow {
+  position: relative;
+  top: 40px;
+  right: 220px;
+  margin-left: 10px;
+  cursor: pointer;
+  color: rgb(207, 40, 171);
 }
-#new-tdl-form input,
-#todo-list-form input {
-  padding: 12px 20px;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
-
 .btn {
   background-color: #4caf50;
   color: white;
@@ -108,10 +129,10 @@
 }
 
 /* Media Queries*/
-@media screen and (max-width: 650px) {
+/* @media screen and (max-width: 650px) {
   #wrapper {
     margin-left: 10px;
     margin-right: 10px;
     flex-direction: column;
   }
-}
+} */

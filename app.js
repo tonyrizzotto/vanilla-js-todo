@@ -137,6 +137,11 @@ function showTodoList(listTitle, listIndex) {
   //get ID of div
   let todoDiv = document.getElementById('todo-list-form');
 
+  const backButton = document.createElement('i');
+  backButton.setAttribute('id', 'back-arrow');
+  backButton.setAttribute('class', 'fas fa-3x fa-arrow-left');
+  todoDiv.appendChild(backButton);
+
   //Create a Heading
   let listHeading = document.createElement('h3');
   listHeading.innerText = listTitle;
@@ -146,14 +151,14 @@ function showTodoList(listTitle, listIndex) {
   let todoInput = document.createElement('input');
   todoInput.setAttribute('id', 'new-task-input');
   todoInput.setAttribute('input', 'text');
-  todoInput.setAttribute('placeholder', 'ex: eggs, butter, milk');
+  todoInput.setAttribute('placeholder', 'Insert a new task here');
   todoDiv.appendChild(todoInput);
 
   //Create and display a submit change button
   const todoSubmitBtn = document.createElement('button');
   todoSubmitBtn.classList.add('btn');
   todoSubmitBtn.setAttribute('id', 'new-task-btn');
-  todoSubmitBtn.innerText = 'Insert New Todo';
+  todoSubmitBtn.innerText = 'Create New Task';
   todoDiv.appendChild(todoSubmitBtn);
 
   /**
@@ -225,9 +230,14 @@ document.getElementById('todo-lists').addEventListener('click', function (e) {
       }
     });
 
-    document.getElementById('new-tdl-form').classList.add('hidden');
-    document.getElementById('todo-list-form').classList.remove('hidden');
+    document.getElementById('tdl-box').classList.add('hidden');
+    document.getElementById('entry-form').classList.remove('hidden');
+
+    const backArrow = document.getElementById('back-arrow');
+    backArrow.addEventListener('click', function () {
+      window.location = '/';
+    });
   }
 });
 
-window.onload('load', fetchTodoLists());
+fetchTodoLists();

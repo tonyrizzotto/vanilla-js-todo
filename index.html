@@ -14,17 +14,15 @@
     <title>Javascript Todo App</title>
   </head>
   <body>
+    <h1>Todo List Application</h1>
     <div id="wrapper">
       <div id="tdl-box">
         <h2>My Lists</h2>
         <ul id="todo-lists"></ul>
-      </div>
-
-      <!-- This is where all Forms will render -->
-      <div id="entry-form">
         <!-- Create New Todo List -->
         <form id="new-tdl-form">
           <label for="new-tdl-list">Create New Todo List</label>
+          <br />
           <input
             type="text"
             name="new-tdl-list"
@@ -33,14 +31,16 @@
           />
           <button type="submit" id="new-tdl-btn" class="btn">Create</button>
         </form>
+      </div>
 
+      <!-- This is where all Forms will render -->
+      <div id="entry-form" class="hidden">
         <!-- Shows Todo-List selected -->
-        <form id="todo-list-form" class="hidden">
-          <button id="new-task-btn" class="btn">Submit New Task</button>
-        </form>
+        <form id="todo-list-form"></form>
         <!-- Entered tasks will render here -->
         <div id="task-box">
           <div id="tasks"></div>
+          <!-- <i id="back-arrow" class="fas fa-3x fa-arrow-alt-circle-left"></i> -->
         </div>
       </div>
     </div>
