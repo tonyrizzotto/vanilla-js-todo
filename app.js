@@ -139,7 +139,7 @@ function showTodoList(listTitle, listIndex) {
 
   const backButton = document.createElement('i');
   backButton.setAttribute('id', 'back-arrow');
-  backButton.setAttribute('class', 'fas fa-3x fa-arrow-left');
+  backButton.setAttribute('class', 'fas fa-2x fa-arrow-left');
   todoDiv.appendChild(backButton);
 
   //Create a Heading
@@ -151,14 +151,14 @@ function showTodoList(listTitle, listIndex) {
   let todoInput = document.createElement('input');
   todoInput.setAttribute('id', 'new-task-input');
   todoInput.setAttribute('input', 'text');
-  todoInput.setAttribute('placeholder', 'Insert a new task here');
+  todoInput.setAttribute('placeholder', 'Enter a new task here');
   todoDiv.appendChild(todoInput);
 
   //Create and display a submit change button
   const todoSubmitBtn = document.createElement('button');
   todoSubmitBtn.classList.add('btn');
   todoSubmitBtn.setAttribute('id', 'new-task-btn');
-  todoSubmitBtn.innerText = 'Create New Task';
+  todoSubmitBtn.innerText = 'Insert';
   todoDiv.appendChild(todoSubmitBtn);
 
   /**
