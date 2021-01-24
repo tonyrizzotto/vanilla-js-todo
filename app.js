@@ -56,6 +56,12 @@ function filterTasks(tasksArray, list) {
 
     tasksDiv.appendChild(taskSpan);
 
+    // create icon tag for done;
+    const doneButton = document.createElement('i');
+    doneButton.setAttribute('isdone', 'false');
+    doneButton.setAttribute('class', 'fas fa-check');
+    taskSpan.appendChild(doneButton);
+
     const deleteButton = document.getElementById(index);
 
     // Listener to detect if the delete icon was clicked.
@@ -91,9 +97,13 @@ function makeLinks(title, index) {
 
   // Create a new list tag
   let newList = document.createElement('li');
-  newList.classList.add('todo-list');
-  newList.setAttribute('listindex', index);
-  newList.innerText = title;
+  let anchor = document.createElement('a');
+  newList.appendChild(anchor);
+
+  anchor.classList.add('todo-list');
+  anchor.setAttribute('listindex', index);
+  anchor.innerText = title;
+
   tdlMenu.appendChild(newList);
 
   // append li tag to the UL
@@ -125,7 +135,7 @@ function createTodoList() {
     localStorage.setItem('Todo-Lists', JSON.stringify(storedTodoList));
 
     //refresh list
-    fetchTodoLists();
+    window.location = '/';
   }
 }
 
@@ -146,6 +156,12 @@ function showTodoList(listTitle, listIndex) {
   let listHeading = document.createElement('h3');
   listHeading.innerText = listTitle;
   todoDiv.appendChild(listHeading);
+
+  // Create a Delete Button
+  const deleteTdlBtn = document.createElement('i');
+  deleteTdlBtn.setAttribute('id', 'delete-list-button');
+  deleteTdlBtn.setAttribute('class', 'fas fa-trash fa-lg');
+  todoDiv.appendChild(deleteTdlBtn);
 
   //add a task input field
   let todoInput = document.createElement('input');
@@ -208,7 +224,7 @@ document.getElementById('new-tdl-btn').addEventListener('click', function () {
 
 //Listener for selecting a Todo list
 document.getElementById('todo-lists').addEventListener('click', function (e) {
-  if (e.target && e.target.matches('Li.todo-list')) {
+  if (e.target && e.target.matches('A.todo-list')) {
     // store the click and save it's listindex
     let listIndex = e.target.attributes.listindex.nodeValue - 1;
 

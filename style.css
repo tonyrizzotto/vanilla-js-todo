@@ -29,9 +29,40 @@ h1 {
 }
 
 /* Todo List Display */
-
+#tdl-box {
+  text-align: center;
+}
 #tdl-box h2 {
+  margin: 10px 0;
   color: white;
+}
+
+#todo-lists {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  align-items: center;
+  justify-content: center;
+}
+
+#todo-lists li {
+  margin: 15px 0;
+}
+#todo-lists a {
+  color: white;
+  margin: 10px;
+  border-radius: 10px;
+  font-size: 15px;
+  padding: 10px 5px;
+  background-color: rgb(158, 85, 255);
+}
+
+.todo-list {
+  cursor: pointer;
+}
+#todo-lists a:hover {
+  transition: 0.2s ease-in;
+  background-color: rgb(156, 54, 204);
 }
 #new-tdl-form {
   margin-top: 20px;
@@ -41,12 +72,25 @@ h1 {
   max-width: 600px;
   text-align: center;
 }
+
 #todo-list-form h3 {
   font-size: 24px;
   padding: 10px;
   color: white;
 }
 
+.fa-trash {
+  position: relative;
+  float: right;
+  top: -28px;
+  right: 20px;
+  color: rgb(100, 40, 40);
+  cursor: pointer;
+}
+.fa-trash:hover {
+  transition: 0.4s ease-in;
+  color: rgb(180, 3, 3);
+}
 #new-tdl-form label,
 #todo-list-form label {
   color: white;
@@ -55,24 +99,12 @@ h1 {
 #new-tdl-form input,
 #todo-list-form input {
   position: relative;
-  right: 9px;
+  right: 3px;
   margin: 10px 10px;
   padding: 12px 20px;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
-}
-
-.todo-list {
-  cursor: pointer;
-}
-#todo-lists li {
-  margin: 5px;
-  border-radius: 10px;
-  font-size: 15px;
-  padding: 10px 5px;
-  background-color: rgb(130, 184, 130);
-  list-style: none;
 }
 
 /* Task Display */
@@ -101,6 +133,7 @@ h1 {
   background-color: rgba(140, 141, 140, 0.425);
   transition: 0.4s ease-in-out;
 }
+
 .icon {
   color: rgb(81, 81, 82);
   float: right;
@@ -110,19 +143,33 @@ h1 {
   transform: rotate(90deg);
   color: red;
 }
+#tasks i.fa-check {
+  position: relative;
+  color: rgb(112, 117, 112);
+  margin-right: 9px;
+  float: right;
+}
+#tasks i.fa-check:hover {
+  transition: 0.2s ease-in;
+  color: rgb(8, 179, 8);
+}
 
 #back-arrow {
   position: relative;
   top: 40px;
-  right: 140px;
+  right: 150px;
   margin-left: 10px;
   cursor: pointer;
-  color: rgb(255, 153, 85);
+  color: rgb(247, 129, 51);
+}
+#back-arrow:hover {
+  transition: 0.4s ease-in;
+  color: rgba(199, 103, 40, 0.801);
 }
 .btn {
   background-color: #1b8b1e;
   color: white;
-  padding: 14px 20px;
+  padding: 13px 20px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
